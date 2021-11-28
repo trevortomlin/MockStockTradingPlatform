@@ -1,0 +1,29 @@
+{% extends "main/header.html" %}
+
+{% block content %}
+
+<h1>Orders:</h1>
+	<table class="striped">
+		<thead>
+			<tr>
+				<th>Order Type</th>
+				<th>Ticker</th>
+				<th>Price</th>
+				<th>Transaction Date</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			{% for o in Orders %}
+				<tr>
+					<td>{{o.orderType}}</td>
+					<td>{{o.ticker}}</td>
+					<td>${{o.price}}</td>
+					<td>{{o.transactionDate}}</td>
+				</tr>
+			{% endfor %}
+		</tr>
+		</tbody>
+	</table>
+
+{% endblock %}
