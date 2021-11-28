@@ -5,8 +5,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.conf import settings
-from dotenv import load_dotenv
 
+# For alpaca api keys
+from dotenv import load_dotenv
 load_dotenv()
 
 # Create your views here.
@@ -15,7 +16,7 @@ def homepage(request):
 	from alpaca_trade_api.rest import REST, TimeFrame
 	api = REST()
 
-	api.get_bars("AAPL", TimeFrame.Hour, "2021-06-08", "2021-06-08", adjustment='raw')
+	print(api.get_bars("AAPL", TimeFrame.Hour, "2021-06-08", "2021-06-08", adjustment='raw'))
 
 	return render(request=request, template_name="main/home.html")
 
