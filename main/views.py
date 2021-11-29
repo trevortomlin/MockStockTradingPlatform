@@ -5,6 +5,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.conf import settings
+import pandas as pd
+from datetime import datetime
+from alpaca_trade_api.rest import REST, TimeFrame
 
 # For alpaca api keys
 from dotenv import load_dotenv
@@ -13,12 +16,17 @@ load_dotenv()
 # Create your views here.
 def homepage(request):
 
-	from alpaca_trade_api.rest import REST, TimeFrame
+	stock = "AAPL"
+
 	api = REST()
 
-	print(api.get_bars("AAPL", TimeFrame.Hour, "2021-06-08", "2021-06-08", adjustment='raw'))
+	bars = api.get_barset(stock, "day", limit=5)
+	data = []
 
-	return render(request=request, template_name="main/home.html")
+	for count, bar in enumerate(bars[stock]):
+		data.append(['Day ' + str(count + 1), bar.l, bar.c, bar.o, bar.h])
+
+	return render(request=request, template_name="main/home.html", context={"Bars": data})
 
 def orders(request):
 
