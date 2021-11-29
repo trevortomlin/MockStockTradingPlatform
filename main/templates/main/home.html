@@ -4,18 +4,11 @@
 	
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 
-	{% if user.is_authenticated %}
-
-		<button class="waves-effect waves-light btn-large">Buy</button>
-		<button class="waves-effect waves-light btn-large">Sell</button>
-
-	{% endif %}
-
 	<nav>
     <div class="nav-wrapper">
       <form>
         <div class="input-field">
-          <input id="search" type="search" required>
+          <input id="search" type="search" required onsearch="goToPage()">
           <label class="label-icon" for="search"><i class="material-icons">search</i></label>
           <i class="material-icons">close</i>
         </div>
@@ -23,29 +16,56 @@
     </div>
   </nav>
 
+  	<script type="text/javascript">
+
+		// document.getElementById("search").addEventListener("search", goToPage());
+		
+		function goToPage(){
+
+			var input = document.getElementById("search").value;
+			location.href = "/" + input;
+
+		}
+
+	</script>
+
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
 
-  function drawChart() {
+	  function drawChart() {
 
-    var data = google.visualization.arrayToDataTable({{Bars|safe}}, true);
+	    var data = google.visualization.arrayToDataTable({{Bars|safe}}, true);
 
-    var options = {
-      legend:'none'
-    };
+	    var options = {
+	      legend:'none'
+	    };
 
-    var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+	    var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
 
-    chart.draw(data, options);
-  }
+	    chart.draw(data, options);
+	  }
     </script>
 
-  <body>
-    <div id="chart_div" style="width: 1500px; height: 750px;"></div>
-  </body>
+    <div class="row">
 
+    <h3>{{Stock}} = ${{CurrentPrice}}</h3>
+
+    <div class="container col s12" id="chart_div" style="width: 3000px; height: 500px;"></div>
+
+  	{% if user.is_authenticated %}
+  		<!-- <form action="#" method="get">
+			<input action="/" type="submit" class="waves-effect waves-light btn-large" name="buyBtn" value="Buy"/>
+			<input action="/" type="submit" class="waves-effect waves-light btn-large" name="sellBtn" value="Sell"/>
+		</form> -->
+		<div class="container col s6">
+			<button class="btn" name="buyBtn">Buy</button>
+			<button class="btn">Sell</button>
+		</div>
+	{% endif %}
+
+	</div>
 
 {% endblock %}

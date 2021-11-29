@@ -26,7 +26,28 @@ def homepage(request):
 	for count, bar in enumerate(bars[stock]):
 		data.append(['Day ' + str(count + 1), bar.l, bar.c, bar.o, bar.h])
 
-	return render(request=request, template_name="main/home.html", context={"Bars": data})
+	return render(request=request, template_name="main/home.html", context={"Stock": stock, "CurrentPrice": bars[stock][-1].c, "Bars": data})
+
+def single_slug(request, single_slug):
+
+	stock = single_slug
+
+	api = REST()
+
+	bars = api.get_barset(stock, "day", limit=5)
+
+	print(bars)
+
+	if len(bars[stock]) == 0:
+		messages.error(request, "Stock does not exist.")
+		return redirect("main:homepage")
+
+	data = []
+
+	for count, bar in enumerate(bars[stock]):
+		data.append(['Day ' + str(count + 1), bar.l, bar.c, bar.o, bar.h])
+
+	return render(request=request, template_name="main/home.html", context={"Stock": stock, "CurrentPrice": bars[stock][-1].c, "Bars": data})
 
 def orders(request):
 
