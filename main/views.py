@@ -13,8 +13,13 @@ from alpaca_trade_api.rest import REST, TimeFrame
 from dotenv import load_dotenv
 load_dotenv()
 
+stock = ""
+price = 0
+
 # Create your views here.
 def homepage(request):
+
+	#print(request.GET)
 
 	stock = "AAPL"
 
@@ -23,10 +28,19 @@ def homepage(request):
 	bars = api.get_barset(stock, "day", limit=5)
 	data = []
 
+	price = bars[stock][-1].c
+
 	for count, bar in enumerate(bars[stock]):
 		data.append(['Day ' + str(count + 1), bar.l, bar.c, bar.o, bar.h])
 
-	return render(request=request, template_name="main/home.html", context={"Stock": stock, "CurrentPrice": bars[stock][-1].c, "Bars": data})
+	if 'buyBtn' in request.GET:
+		Orders.objects.create(orderType="Buy", ticker=stock, price=price, transactionDate=datetime.now(), user=request.user)
+
+	elif 'sellBtn' in request.GET:
+		Orders.objects.create(orderType="Sell", ticker=stock, price=price, transactionDate=datetime.now(), user=request.user)
+
+
+	return render(request=request, template_name="main/home.html", context={"Stock": stock, "CurrentPrice": price, "Bars": data})
 
 def single_slug(request, single_slug):
 
@@ -36,7 +50,13 @@ def single_slug(request, single_slug):
 
 	bars = api.get_barset(stock, "day", limit=5)
 
-	print(bars)
+	price = bars[stock][-1].c
+
+	if 'buyBtn' in request.GET:
+		Orders.objects.create(orderType="Buy", ticker=stock, price=price, transactionDate=datetime.now(), user=request.user)
+
+	elif 'sellBtn' in request.GET:
+		Orders.objects.create(orderType="Sell", ticker=stock, price=price, transactionDate=datetime.now(), user=request.user)
 
 	if len(bars[stock]) == 0:
 		messages.error(request, "Stock does not exist.")
@@ -47,7 +67,7 @@ def single_slug(request, single_slug):
 	for count, bar in enumerate(bars[stock]):
 		data.append(['Day ' + str(count + 1), bar.l, bar.c, bar.o, bar.h])
 
-	return render(request=request, template_name="main/home.html", context={"Stock": stock, "CurrentPrice": bars[stock][-1].c, "Bars": data})
+	return render(request=request, template_name="main/home.html", context={"Stock": stock, "CurrentPrice": price, "Bars": data})
 
 def orders(request):
 

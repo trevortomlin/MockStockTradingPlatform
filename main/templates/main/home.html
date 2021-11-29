@@ -56,14 +56,14 @@
     <div class="container col s12" id="chart_div" style="width: 3000px; height: 500px;"></div>
 
   	{% if user.is_authenticated %}
-  		<!-- <form action="#" method="get">
-			<input action="/" type="submit" class="waves-effect waves-light btn-large" name="buyBtn" value="Buy"/>
-			<input action="/" type="submit" class="waves-effect waves-light btn-large" name="sellBtn" value="Sell"/>
-		</form> -->
-		<div class="container col s6">
+  		<form method="get">
+			<button type="submit" class="waves-effect waves-light btn-large" name="buyBtn">Buy</button>
+			<button type="submit" class="waves-effect waves-light btn-large" name="sellBtn">Sell</button>
+		</form>
+		<!-- <div class="container col s6">
 			<button class="btn" name="buyBtn">Buy</button>
 			<button class="btn">Sell</button>
-		</div>
+		</div> -->
 	{% endif %}
 
 	</div>
