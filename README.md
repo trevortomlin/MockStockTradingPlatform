@@ -1,6 +1,6 @@
 #  MockStockTradingPlatform
 
-![Bower](https://img.shields.io/bower/l/a?style=plastic)\
+![Bower](https://img.shields.io/bower/l/a?style=plastic)
 
 Django Mock Stock Trading Platform
 
