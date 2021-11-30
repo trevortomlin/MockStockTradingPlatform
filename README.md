@@ -1,7 +1,6 @@
 #  MockStockTradingPlatform
 
 ![Bower](https://img.shields.io/bower/l/a?style=plastic)\
-\
 
 Django Mock Stock Trading Platform
 
@@ -11,10 +10,10 @@ This project uses Python and Django to create a website that mimicks a brokerage
 
 ## Images
 
-<img src="screenshots/homepage.JPG" width=40% height=40%>
-<img src="orderspage.JPG" width=40% height=40%>
-<img src="registerpage.JPG" width=40% height=40%>
-<img src="loginpage.JPG" width=40% height=40%>
+<img src="screenshots/homepage.JPG" width=75% height=75%>
+<img src="screenshots/orderspage.JPG" width=75% height=75%>
+<img src="screenshots/registerpage.JPG" width=75% height=75%>
+<img src="screenshots/loginpage.JPG" width=75% height=75%>
 
 ## Technologies Used
 
