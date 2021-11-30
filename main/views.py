@@ -25,7 +25,7 @@ def homepage(request):
 
 	api = REST()
 
-	bars = api.get_barset(stock, "day", limit=5)
+	bars = api.get_barset(stock, "day", limit=7)
 	data = []
 
 	price = bars[stock][-1].c
@@ -48,7 +48,11 @@ def single_slug(request, single_slug):
 
 	api = REST()
 
-	bars = api.get_barset(stock, "day", limit=5)
+	bars = api.get_barset(stock, "day", limit=7)
+
+	if len(bars[stock]) == 0:
+		messages.error(request, "Stock does not exist.")
+		return redirect("main:homepage")
 
 	price = bars[stock][-1].c
 
@@ -57,10 +61,6 @@ def single_slug(request, single_slug):
 
 	elif 'sellBtn' in request.GET:
 		Orders.objects.create(orderType="Sell", ticker=stock, price=price, transactionDate=datetime.now(), user=request.user)
-
-	if len(bars[stock]) == 0:
-		messages.error(request, "Stock does not exist.")
-		return redirect("main:homepage")
 
 	data = []
 

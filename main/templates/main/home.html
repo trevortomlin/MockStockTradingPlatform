@@ -1,11 +1,9 @@
 {% extends "main/header.html" %}
 
 {% block content %}
-	
-	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 
 	<nav>
-    <div class="nav-wrapper">
+    <div class="nav-wrapper red">
       <form>
         <div class="input-field">
           <input id="search" type="search" required onsearch="goToPage()">
@@ -17,8 +15,6 @@
   </nav>
 
   	<script type="text/javascript">
-
-		// document.getElementById("search").addEventListener("search", goToPage());
 		
 		function goToPage(){
 
@@ -40,7 +36,12 @@
 	    var data = google.visualization.arrayToDataTable({{Bars|safe}}, true);
 
 	    var options = {
-	      legend:'none'
+	      legend:'none',
+	      candlestick: {
+            fallingColor: { strokeWidth: 0, fill: '#FF0000' }, // red
+            risingColor: { strokeWidth: 0, fill: '#008000' }   // green
+          }
+
 	    };
 
 	    var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
@@ -55,16 +56,15 @@
 
     <div class="container col s12" id="chart_div" style="width: 3000px; height: 500px;"></div>
 
+   	<div class="container col s12 center">
   	{% if user.is_authenticated %}
   		<form method="get">
-			<button type="submit" class="waves-effect waves-light btn-large" name="buyBtn">Buy</button>
-			<button type="submit" class="waves-effect waves-light btn-large" name="sellBtn">Sell</button>
+			<button type="submit" class="waves-effect waves-light btn-large red" name="buyBtn">Buy</button>
+			<button type="submit" class="waves-effect waves-light btn-large red" name="sellBtn">Sell</button>
 		</form>
-		<!-- <div class="container col s6">
-			<button class="btn" name="buyBtn">Buy</button>
-			<button class="btn">Sell</button>
-		</div> -->
 	{% endif %}
+
+	</div>
 
 	</div>
 
