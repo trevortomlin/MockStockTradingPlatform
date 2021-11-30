@@ -6,7 +6,7 @@ Django Mock Stock Trading Platform
 
 ## Description
 
-This project uses Python and Django to create a website that mimicks a brokerage. There is user registration and login and it keeps track of which stock the user buys or sells. The user can also search for any stock and get a candlestick chart of the recent trading prices.
+This project uses Python and Django to create a website that mimicks a brokerage. There is user registration and login and it keeps track of which stock the user buys or sells. The user can also search for any stock and get a candlestick chart of the recent trading prices. It uses the Alpaca Markets api to get stock prices.
 
 ## Images
 
@@ -17,7 +17,7 @@ This project uses Python and Django to create a website that mimicks a brokerage
 
 ## Technologies Used
 
-Python, Django, HTML, CSS, Javascript, Google Charts
+Python, Django, HTML, CSS, Javascript, Google Charts, Alpaca Markets API
 
 ## Improvements
 
